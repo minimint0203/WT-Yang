@@ -1,0 +1,128 @@
+# Pages CMS 설정 — https://app.pagescms.org 에서 깃허브로 로그인하면 아래 항목을 폼으로 수정할 수 있습니다.
+# 저장하면 data 폴더의 JSON 파일이 커밋되고, 1~2분 뒤 사이트에 반영됩니다.
+
+media:
+  input: images
+  output: /images
+
+content:
+  - name: papers
+    label: 연구 성과 · 논문
+    type: file
+    path: data/papers.json
+    format: json
+    list: true
+    fields:
+      - name: year
+        label: 발표 연도
+        type: number
+        required: true
+      - name: title
+        label: 논문 제목
+        type: string
+        required: true
+      - name: authors
+        label: 저자
+        description: 논문 원문 표기 그대로, 쉼표로 구분해서 입력하세요. 교수님 이름(Won Tae Yang / 양원태)은 자동으로 굵게 표시됩니다.
+        type: text
+      - name: journal
+        label: 학술지
+        type: string
+      - name: doi
+        label: DOI
+        description: "예: 10.3390/plants13050637 (https://doi.org/ 는 빼고 입력)"
+        type: string
+      - name: category
+        label: 분류
+        type: select
+        options:
+          values:
+            - 국제전문학술지(SCI급)
+            - 국제일반학술지
+            - 국내전문학술지(KCI등재)
+            - 국내전문학술지(KCI등재후보)
+            - 기타
+
+  - name: patents
+    label: 연구 성과 · 특허
+    type: file
+    path: data/patents.json
+    format: json
+    list: true
+    fields:
+      - name: year
+        label: 등록 연도
+        type: number
+        required: true
+      - name: title
+        label: 특허명
+        type: string
+        required: true
+
+  - name: projects
+    label: 연구 성과 · 연구과제
+    type: file
+    path: data/projects.json
+    format: json
+    list: true
+    fields:
+      - name: start
+        label: 시작 (YYYY.MM)
+        type: string
+        required: true
+        pattern:
+          regex: "^\\d{4}\\.\\d{2}$"
+          message: "2026.04 형식으로 입력하세요"
+      - name: end
+        label: 종료 (YYYY.MM)
+        description: 진행 중이면 비워두세요. "현재"로 표시됩니다.
+        type: string
+      - name: title
+        label: 과제명
+        type: string
+        required: true
+      - name: agency
+        label: 지원 기관
+        type: string
+      - name: lead
+        label: 주관 과제
+        type: boolean
+
+  - name: courses
+    label: 강의 · 담당 과목
+    type: file
+    path: data/courses.json
+    format: json
+    list: true
+    fields:
+      - name: name
+        label: 과목명
+        type: string
+        required: true
+      - name: semester
+        label: 개설 학기
+        description: "예: 1학기, 2학기, 매학기"
+        type: string
+      - name: description
+        label: 과목 소개
+        type: text
+
+  - name: office
+    label: 강의 · 면담 안내
+    type: file
+    path: data/office.json
+    format: json
+    fields:
+      - name: hours
+        label: 면담 시간
+        description: "예: 매주 화·목 14:00–16:00"
+        type: text
+      - name: place
+        label: 장소
+        type: string
+      - name: how
+        label: 신청 방법
+        type: text
+      - name: note
+        label: 참고 사항
+        type: text
